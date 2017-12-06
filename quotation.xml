@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+
+		<record id="crm_case_form_view_oppor_inherit" model="ir.ui.view">
+			<field name="name">crm.lead.oppor.inherited.crm</field>
+			<field name="model">crm.lead</field>
+			<field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor" />
+			<field name="arch" type="xml">
+				<xpath expr="//button[@name='action_set_won']" position="before">
+					<button string="Quotation" name="new_quotation" type="object"
+						class="oe_highlight" />
+				</xpath>
+				<xpath expr="//button[@name='action_set_won']" position="before">
+					<button string="Print" name="excel_function" type="object"
+						class="oe_highlight" />
+				</xpath>
+			
+				<xpath expr="//div/button[3]" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//div/button[2]" position="after">
+					<button class="oe_stat_button" type="object" name="sale_quotation"
+						icon="fa-pencil-square-o">
+						<div class="o_stat_info">
+							<field name="quot_number" class="o_stat_value" />
+							<span class="o_stat_text"> Quote</span>
+						</div>
+					</button>
+				</xpath>
+				<xpath expr="//sheet/notebook/page[2]" position="after">
+					<page string="Order line">
+						<field name="product_line_ids">
+							<tree editable="bottom">
+								<field name="product_id" />
+								<field name="quantity" />
+								<field name="product_uom_id" />
+								<field name="price" />
+								<field name="sub_total" sum="sub_total" />
+							</tree>
+						</field>
+					</page>
+
+				</xpath>
+			</field>
+		</record>
+		<record id="crm_lead_excel_report" model="ir.ui.view">
+			<field name="name">lead.report.form</field>
+			<field name="model">lead.report</field>
+			<field name="arch" type="xml">
+				<form>
+					<group>
+						<field name="lead_xl" readonly="1" filename="lead_char" />
+						<field name="lead_char" invisible="1" />
+					</group>
+					<footer>
+						<button name="cancel" string="close" special="cancel"
+							class="oe_link" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="crm_lead_report" model="ir.actions.act_window">
+			<field name="name">excel report</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">lead.report</field>
+			<field name="view_type">form</field>
+			<field name="view_id" ref="crm_lead_excel_report" />
+			<field name="target">new</field>
+		</record>
+
+
+		<record id="view_order_form_id" model="ir.ui.view">
+			<field name="name">sale.order.form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//button[@name='action_view_invoice']" position="after">
+				</xpath>
+				<div name="button_box" position="after">
+					<button class="oe_stat_button" type="object" name="order_quotation"
+						icon="fa-pencil-square-o">
+						<div class="o_stat_info">
+							<span class="o_stat_text"> Order(s) </span>
+						</div>
+					</button>
+				</div>
+				<!-- <xpath expr="//field[@name ='order_line']/tree/field[@name='product_id']" 
+					position="replace"> <field name="product" string="product name" /> </xpath> -->
+			</field>
+		</record>
+	</data>
+</odoo>              
