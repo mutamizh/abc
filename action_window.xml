@@ -1,0 +1,5 @@
+<record id="action_student_view" model="ir.actions.act_window">
+<field name="name">Student Details</field>
+<field name="res_model">student.details</field>
+<field name="view_mode">tree,form,kanban</field>
+</record>
